@@ -49,7 +49,6 @@ fi
 # - $ZSH_CUSTOM/aliases.zsh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
-alias aws-login="aws codeartifact login --tool npm --repository all-point --domain all-point-retail --domain-owner 713553022418 --namespace @all-point"
 alias source-zsh="source ~/.zshrc && source $ZSH/oh-my-zsh.sh"
 alias zshconfig="nvim ~/.zshrc && source-zsh"
 alias ohmyzsh="nvim $ZSH/oh-my-zsh.sh"
@@ -68,14 +67,11 @@ fcd() {
 ## set up neovim
 export PATH="$HOME/neovim/bin:$PATH"
 
-## export environment variables
-export AP_CLIENT="loverslane"
-export AP_ENVIRONMENT="dev"
-export AP_DATA_API_OVERRIDE="http://localhost:8081"
-export AP_BYPASS_DAPI="false"
-export DATABASE_URL=""
-export RELATIONAL_DB_CONNECTION_STRING=""
-export AP_AWS_REGION="us-east-1"
-export SKIP_WEBHOOK_REGISTER=true
-export AP_LOCAL=true
-export AP_LOCAL_QUEUE_PATH="/home/jamesj/dev/platform/local-queue"
+# Auto-load all executable files in ~/.zshrc-modules
+module_dir="${ZDOTDIR:-$HOME}/.zshrc-modules"
+if [[ -d $module_dir ]]; then
+  for module in "$module_dir"/*; do
+    [[ -f $module && -r $module ]] || continue
+    source "$module"
+  done
+fi
