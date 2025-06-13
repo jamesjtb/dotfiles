@@ -58,7 +58,7 @@ alias fd="fdfind"
 ## fuzzy cd
 fcd() {
     local dir
-    dir=$(fd --type d | fzf)
+    dir=$(fd -H --type d | fzf)
     if [ -n "$dir" ]; then
         cd "$dir"
     fi
