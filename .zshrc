@@ -51,6 +51,7 @@ fi
 # For a full list of active aliases, run `alias`.
 alias aws-login="aws codeartifact login --tool npm --repository all-point --domain all-point-retail --domain-owner 713553022418 --namespace @all-point"
 alias source-zsh="source ~/.zshrc && source $ZSH/oh-my-zsh.sh"
+alias vim="nvim"
 alias zshconfig="nvim ~/.zshrc && source-zsh"
 alias ohmyzsh="nvim $ZSH/oh-my-zsh.sh"
 alias lg="lazygit"
