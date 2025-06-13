@@ -50,6 +50,7 @@ fi
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 alias source-zsh="source ~/.zshrc && source $ZSH/oh-my-zsh.sh"
+alias vim="nvim"
 alias zshconfig="nvim ~/.zshrc && source-zsh"
 alias ohmyzsh="nvim $ZSH/oh-my-zsh.sh"
 alias lg="lazygit"
