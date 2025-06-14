@@ -1,1 +1,1 @@
-stow . --dotfiles --ignore apply-dotfiles.zsh
+stow . --dotfiles --ignore apply-dotfiles.zsh --ignore .git
