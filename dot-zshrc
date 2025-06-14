@@ -39,6 +39,8 @@ fpath+=($pure_path)
 autoload -U promptinit; promptinit
 prompt pure
 
+zstyle ':prompt:pure:git:stash' show yes
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
