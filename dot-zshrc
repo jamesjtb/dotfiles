@@ -19,12 +19,15 @@ COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git nvm command-not-found)
+plugins=(git nvm)
 
 source $ZSH/oh-my-zsh.sh
 
-# Set up node
-nvm install --lts
+# Set up node if it doesn't exist
+if ! command -v node &> /dev/null; then
+    echo "node command not found - installing latest LTS version"
+    nvm install --lts
+fi
 
 # Set up pure theme
 ZSH_THEME=""
@@ -72,7 +75,7 @@ alias fd="fdfind"
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
-## fuzzy cd
+# fuzzy cd
 fcd() {
     local dir
     dir=$(fd -H --type d | fzf)
@@ -81,7 +84,7 @@ fcd() {
     fi
 }
 
-## set up neovim
+# set up neovim
 export PATH="$HOME/neovim/bin:$PATH"
 
 # Auto-load all executable files in ~/.zshrc-modules
@@ -91,4 +94,16 @@ if [[ -d $module_dir ]]; then
     [[ -f $module && -r $module ]] || continue
     source "$module"
   done
+fi
+
+# Install tmux if we don't have it
+if ! command -v tmux &> /dev/null; then
+    echo "tmux does not seem to be installed. Installing..."
+    apt install tmux
+fi
+
+# Load tmux if this is an interactive shell
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  echo "launching tmux"
+  exec tmux
 fi
