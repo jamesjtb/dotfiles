@@ -65,14 +65,23 @@ fi
 # - $ZSH_CUSTOM/aliases.zsh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
-alias source-zsh="source ~/.zshrc && source $ZSH/oh-my-zsh.sh"
+alias zshreload="source ~/.zshrc && source $ZSH/oh-my-zsh.sh"
 alias vim="nvim"
-alias zshconfig="nvim ~/.zshrc && source-zsh"
+alias zshconfig="nvim ~/.zshrc && zshreload"
 alias ohmyzsh="nvim $ZSH/oh-my-zsh.sh"
 alias lg="lazygit"
 alias fd="fdfind"
 
-# Set up fzf key bindings and fuzzy completion
+
+# Set up fzf
+
+if [ ! -d "$HOME/.fzf" ]; then
+    echo "fzf is not present - installing..."
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --all
+fi
+# add fzf to path early so it's available to be sourced from
+export PATH="$HOME/.fzf/bin:$PATH"
 source <(fzf --zsh)
 
 # fuzzy cd
@@ -107,3 +116,5 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
   echo "launching tmux"
   exec tmux
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
