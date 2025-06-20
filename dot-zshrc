@@ -71,7 +71,7 @@ alias zshconfig="nvim ~/.zshrc && zshreload"
 alias ohmyzsh="nvim $ZSH/oh-my-zsh.sh"
 alias lg="lazygit"
 alias fd="fdfind"
-
+bindkey -s ^f "tmux-sessionizer\n"
 
 # Set up fzf
 
@@ -80,8 +80,8 @@ if [ ! -d "$HOME/.fzf" ]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install --all
 fi
-# add fzf to path early so it's available to be sourced from
-export PATH="$HOME/.fzf/bin:$PATH"
+
+export PATH="$HOME/.fzf/bin:$PATH" # add fzf to path early so it's available to be sourced from on the next line
 source <(fzf --zsh)
 
 # fuzzy cd
