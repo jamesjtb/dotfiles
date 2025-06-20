@@ -29,6 +29,12 @@ if ! command -v node &> /dev/null; then
     nvm install --lts
 fi
 
+# Set up bat if it doesn't exist
+if ! (command -v bat &> /dev/null || command -v batcat &> /dev/null); then
+    echo "bat command not found - installing from apt"
+    sudo apt install bat -y
+fi
+
 # Set up pure theme
 ZSH_THEME=""
 local pure_path=$HOME/.zsh/pure
@@ -71,7 +77,11 @@ alias zshconfig="nvim ~/.zshrc && zshreload"
 alias ohmyzsh="nvim $ZSH/oh-my-zsh.sh"
 alias lg="lazygit"
 alias fd="fdfind"
+alias bat="batcat"
+
+export PATH="$HOME/.scripts:$PATH"
 bindkey -s ^f "tmux-sessionizer\n"
+
 
 # Set up fzf
 
