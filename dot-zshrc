@@ -82,6 +82,14 @@ alias bat="batcat"
 export PATH="$HOME/.scripts:$PATH"
 bindkey -s ^f "tmux-sessionizer\n"
 
+# Install nvim
+if ! command -v nvim &> /dev/null; then
+    echo "didn't see neovim, btw. Installing..."
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz    
+fi
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # Set up fzf
 
@@ -118,7 +126,7 @@ fi
 # Install tmux if we don't have it
 if ! command -v tmux &> /dev/null; then
     echo "tmux does not seem to be installed. Installing..."
-    apt install tmux
+    sudo apt install tmux
 fi
 
 # Load tmux if this is an interactive shell
