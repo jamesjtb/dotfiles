@@ -35,6 +35,12 @@ if ! (command -v bat &> /dev/null || command -v batcat &> /dev/null); then
     sudo apt install bat -y
 fi
 
+# set up tpm, you know the rest
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+    echo "tpm not found - cloning into tmux plugins"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
 # Set up pure theme
 ZSH_THEME=""
 local pure_path=$HOME/.zsh/pure
@@ -136,3 +142,4 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fpath+=${ZDOTDIR:-~}/.zsh_functions

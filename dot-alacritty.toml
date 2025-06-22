@@ -1,0 +1,10 @@
+[general]
+working_directory = "~"
+
+[window]
+opacity = 0.75
+blur = true
+
+[font]
+normal = {family = "Terminess Nerd Font", style = "Regular"}
+size = 14.5
