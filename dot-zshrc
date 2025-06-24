@@ -19,7 +19,12 @@ COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git nvm)
+# install nvm for zsh
+if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm" ]; then
+    git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
+fi
+
+plugins=(git zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -60,11 +65,29 @@ zstyle ':prompt:pure:git:stash' show yes
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# Install nvim
+if [ ! -d "/opt/nvim-linux-x86_64" ]; then
+    echo "didn't see neovim, btw. Installing..."
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz    
+    # now set up kickstart
+    sudo apt install ripgrep
+    sudo apt install fd-find
+    sudo apt install fonts-noto-color-emoji
+    git clone https://github.com/jamesjtb/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+fi
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
+fi
+
+# set up kickstart.nvim
+if [ ! -d "$HOME/.config/nvim" ]; then
 fi
 
 # Compilation flags
@@ -87,15 +110,6 @@ alias bat="batcat"
 
 export PATH="$HOME/.scripts:$PATH"
 bindkey -s ^f "tmux-sessionizer\n"
-
-# Install nvim
-if ! command -v nvim &> /dev/null; then
-    echo "didn't see neovim, btw. Installing..."
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-    sudo rm -rf /opt/nvim
-    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz    
-fi
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # Set up fzf
 
