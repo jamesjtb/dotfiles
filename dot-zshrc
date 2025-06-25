@@ -107,6 +107,7 @@ alias ohmyzsh="nvim $ZSH/oh-my-zsh.sh"
 alias lg="lazygit"
 alias fd="fdfind"
 alias bat="batcat"
+alias trs="tmux rename-session"
 
 export PATH="$HOME/.scripts:$PATH"
 bindkey -s ^f "tmux-sessionizer\n"
