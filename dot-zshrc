@@ -153,7 +153,7 @@ fi
 # Load tmux if this is an interactive shell
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
   echo "launching tmux"
-  exec tmux
+  exec tmux new-session -A -s main
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
