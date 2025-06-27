@@ -2,9 +2,9 @@
 working_directory = "~"
 
 [window]
-opacity = 0.75
+opacity = 0.85
 blur = true
 
 [font]
-normal = {family = "Terminess Nerd Font", style = "Regular"}
-size = 12
+normal = {family = "GoMono Nerd Font", style = "Regular"}
+size = 11
