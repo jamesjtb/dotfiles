@@ -4,6 +4,7 @@ working_directory = "~"
 [window]
 opacity = 0.85
 blur = true
+decorations = "None"
 
 [font]
 normal = {family = "GoMono Nerd Font", style = "Regular"}
