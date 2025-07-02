@@ -5,6 +5,7 @@ working_directory = "~"
 opacity = 0.85
 blur = true
 decorations = "None"
+padding = { x = 15, y = 10 }
 
 [font]
 normal = {family = "GoMono Nerd Font", style = "Regular"}
