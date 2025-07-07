@@ -37,11 +37,6 @@ if ! command -v node &> /dev/null; then
     nvm install --lts
 fi
 
-# Set up bat if it doesn't exist
-if ! (command -v bat &> /dev/null || command -v batcat &> /dev/null); then
-    echo "bat command not found - installing from apt"
-    sudo apt install bat -y
-fi
 
 # zoxide
 if [ ! -f "$HOME/.local/bin/zoxide" ]; then
@@ -80,8 +75,7 @@ if [ ! -d "/opt/nvim-linux-x86_64" ]; then
     curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
     sudo rm -rf /opt/nvim
     sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz    
-    # now set up kickstart
-    sudo apt install ripgrep
+    # now set up kickstart sudo apt install ripgrep
     sudo apt install fd-find
     sudo apt install fonts-noto-color-emoji
     git clone https://github.com/jamesjtb/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
@@ -142,25 +136,30 @@ fcd() {
 # set up neovim
 export PATH="$HOME/neovim/bin:$PATH"
 
-# Auto-load all executable files in ~/.zshrc-modules
-module_dir="${ZDOTDIR:-$HOME}/.zshrc-modules"
-if [[ -d $module_dir ]]; then
-  for module in "$module_dir"/*; do
-    [[ -f $module && -r $module ]] || continue
-    source "$module"
-  done
+# run enabled zshrc-modules
+modules_dir="${HOME}/.zshrc-modules"
+enabled_modules_filename="modules-enabled"
+
+enabled_modules_file_path="${modules_dir}/${enabled_modules_filename}"
+
+if [[ -f "$enabled_modules_file_path" ]]; then
+    while IFS= read -r module_name || [[ -n "$module_name" ]]; do
+        # Skip empty lines and comments
+        [[ -z "$module_name" || "$module_name" == \#* ]] && continue
+
+        module_path="${modules_dir}/${module_name}"
+
+        # Support both .sh and .zsh files
+        if [[ -f "$module_path" && ( "$module_path" == *.sh || "$module_path" == *.zsh ) ]]; then
+            source "$module_path"
+        else
+            echo "Warning: Module '$module_name' not found or unsupported extension." >&2
+        fi
+    done < "$enabled_modules_file_path"
+else
+    echo "$enabled_modules_filename not found in $modules_dir"
 fi
 
-# Install tmux if we don't have it
-if ! command -v tmux &> /dev/null; then
-    echo "tmux does not seem to be installed. Installing..."
-    sudo apt install tmux
-fi
-
-if ! command -v nala &> /dev/null; then
-    echo "did not see nala (apt front-end) Installing..."
-    sudo apt install nala
-fi
 
 # Load tmux if this is an interactive shell
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then

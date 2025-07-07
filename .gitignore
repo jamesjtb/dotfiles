@@ -1,1 +1,2 @@
-dot-zshrc-modules/*.zsh
+dot-zshrc-modules/modules-enabled
+dot-zshrc-modules/allpoint.zsh
