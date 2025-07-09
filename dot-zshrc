@@ -147,11 +147,11 @@ if [[ -f "$enabled_modules_file_path" ]]; then
         # Skip empty lines and comments
         [[ -z "$module_name" || "$module_name" == \#* ]] && continue
 
-        module_path="${modules_dir}/${module_name}"
+        custom_module_path="${modules_dir}/${module_name}"
 
         # Support both .sh and .zsh files
-        if [[ -f "$module_path" && ( "$module_path" == *.sh || "$module_path" == *.zsh ) ]]; then
-            source "$module_path"
+        if [[ -f "$custom_module_path" && ( "$custom_module_path" == *.sh || "$custom_module_path" == *.zsh ) ]]; then
+            source "$custom_module_path"
         else
             echo "Warning: Module '$module_name' not found or unsupported extension." >&2
         fi
