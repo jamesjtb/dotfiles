@@ -136,30 +136,27 @@ fcd() {
 # set up neovim
 export PATH="$HOME/neovim/bin:$PATH"
 
-# run enabled zshrc-modules
+# Run enabled zshrc-modules
 modules_dir="${HOME}/.zshrc-modules"
-enabled_modules_filename="modules-enabled"
+enabled_modules_file="${modules_dir}/modules-enabled"
 
-enabled_modules_file_path="${modules_dir}/${enabled_modules_filename}"
-
-if [[ -f "$enabled_modules_file_path" ]]; then
+if [[ -f "$enabled_modules_file" ]]; then
     while IFS= read -r module_name || [[ -n "$module_name" ]]; do
         # Skip empty lines and comments
         [[ -z "$module_name" || "$module_name" == \#* ]] && continue
 
-        module_path="${modules_dir}/${module_name}"
+        custom_module_path="${modules_dir}/${module_name}"
 
-        # Support both .sh and .zsh files
-        if [[ -f "$module_path" && ( "$module_path" == *.sh || "$module_path" == *.zsh ) ]]; then
-            source "$module_path"
+        # Realpath safety
+        if [[ -f "$custom_module_path" && ( "$custom_module_path" == *.sh || "$custom_module_path" == *.zsh ) ]]; then
+            source "$custom_module_path"
         else
             echo "Warning: Module '$module_name' not found or unsupported extension." >&2
         fi
-    done < "$enabled_modules_file_path"
+    done < "$enabled_modules_file"
 else
-    echo "$enabled_modules_filename not found in $modules_dir"
+    echo "modules-enabled not found in $modules_dir"
 fi
-
 
 # Load tmux if this is an interactive shell
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
