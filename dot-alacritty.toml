@@ -1,6 +1,9 @@
 [general]
 working_directory = "~"
 
+[env]
+WINIT_X11_SCALE_FACTOR = "1.0"
+
 [window]
 opacity = 0.85
 blur = true
