@@ -106,7 +106,6 @@ alias zshconfig="nvim ~/.zshrc && zshreload"
 alias ohmyzsh="nvim $ZSH/oh-my-zsh.sh"
 alias lg="lazygit"
 alias fd="fdfind"
-alias bat="batcat"
 alias trs="tmux rename-session"
 alias nv="npm run verify"
 
