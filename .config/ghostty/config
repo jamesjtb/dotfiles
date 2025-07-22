@@ -1,7 +1,7 @@
 # Theming
 theme = Dark Pastel
 font-family = GoMono Nerd Font
-background-opacity = .90
+background-opacity = .80
 
 # Window
 window-decoration = none
@@ -15,3 +15,6 @@ mouse-hide-while-typing = true
 
 # Keybinds
 keybind = global:super+`=toggle_quick_terminal
+
+# Misc
+confirm-close-surface = false
