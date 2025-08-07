@@ -1,3 +1,5 @@
+initial-command = "tmux"
+
 # Theming
 theme = Dark Pastel
 font-family = GoMono Nerd Font
