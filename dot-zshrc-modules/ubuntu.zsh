@@ -1,3 +1,5 @@
+alias bat="batcat"
+
 ubuntu_setup() {
     for pkg in bat tmux nala; do
         if ! command -v "$pkg" &> /dev/null && ! command -v "${pkg}cat" &> /dev/null; then
