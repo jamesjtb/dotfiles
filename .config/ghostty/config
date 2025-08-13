@@ -1,4 +1,4 @@
-initial-command = "tmux"
+command = "zsh -lic 'tmux attach -t default || tmux new -s default'"
 
 # Theming
 theme = Dark Pastel
